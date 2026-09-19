@@ -1,0 +1,376 @@
+/**
+ * app.js
+ * ------
+ * Frontend controller for Document Validation AI Web Desktop GUI.
+ */
+
+document.addEventListener("DOMContentLoaded", () => {
+  // DOM Elements
+  const dropzone = document.getElementById("dropzone");
+  const fileInput = document.getElementById("fileInput");
+  const browseBtn = document.getElementById("browseBtn");
+  const dropzonePrompt = document.getElementById("dropzonePrompt");
+  const fileSelectedState = document.getElementById("fileSelectedState");
+  const selectedFileName = document.getElementById("selectedFileName");
+  const selectedFileSize = document.getElementById("selectedFileSize");
+  const clearFileBtn = document.getElementById("clearFileBtn");
+
+  const docTypeSelect = document.getElementById("docTypeSelect");
+  const validateBtn = document.getElementById("validateBtn");
+  const btnSpinner = document.getElementById("btnSpinner");
+
+  const emptyState = document.getElementById("emptyState");
+  const resultsDashboard = document.getElementById("resultsDashboard");
+
+  // Report DOM elements
+  const verdictCard = document.getElementById("verdictCard");
+  const verdictBadge = document.getElementById("verdictBadge");
+  const reportDocMeta = document.getElementById("reportDocMeta");
+  const verdictSummary = document.getElementById("verdictSummary");
+  const resultCoach = document.getElementById("resultCoach");
+  const resultCoachIcon = document.getElementById("resultCoachIcon");
+  const resultCoachTitle = document.getElementById("resultCoachTitle");
+  const resultCoachText = document.getElementById("resultCoachText");
+
+  const mlScoreFill = document.getElementById("mlScoreFill");
+  const mlScoreVal = document.getElementById("mlScoreVal");
+  const wordCountVal = document.getElementById("wordCountVal");
+  const wordCountSub = document.getElementById("wordCountSub");
+  const orderVal = document.getElementById("orderVal");
+  const ruleVal = document.getElementById("ruleVal");
+
+  const checklistTableBody = document.getElementById("checklistTableBody");
+  const remarksList = document.getElementById("remarksList");
+  const extractedTextCode = document.getElementById("extractedTextCode");
+
+  const tabBtns = document.querySelectorAll(".tab-btn");
+  const tabContents = document.querySelectorAll(".tab-content");
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon = themeToggle.querySelector(".theme-icon");
+  const themeLabel = themeToggle.querySelector(".theme-label");
+  const templateHelperTitle = document.getElementById("templateHelperTitle");
+  const templateHelperSummary = document.getElementById("templateHelperSummary");
+  const templateSectionCount = document.getElementById("templateSectionCount");
+  const templateSectionsList = document.getElementById("templateSectionsList");
+  const templateFieldsList = document.getElementById("templateFieldsList");
+  const templateRequirements = document.getElementById("templateRequirements");
+  const templateRequirementsPreview = document.getElementById("templateRequirementsPreview");
+  const copyTemplateBtn = document.getElementById("copyTemplateBtn");
+  const copyFeedback = document.getElementById("copyFeedback");
+
+  let currentSelectedFile = null;
+  let currentTemplate = "";
+
+  applyTheme(localStorage.getItem("document-validation-theme") || "light");
+  themeToggle.addEventListener("click", () => {
+    const nextTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
+    applyTheme(nextTheme);
+    localStorage.setItem("document-validation-theme", nextTheme);
+  });
+
+  function applyTheme(theme) {
+    document.body.dataset.theme = theme;
+    const darkMode = theme === "dark";
+    themeIcon.textContent = darkMode ? "☀" : "☾";
+    themeLabel.textContent = darkMode ? "Light mode" : "Dark mode";
+    themeToggle.title = darkMode ? "Switch to light mode" : "Switch to dark mode";
+    themeToggle.setAttribute("aria-label", themeToggle.title);
+  }
+
+  loadDocumentTypes();
+
+  async function loadDocumentTypes() {
+    try {
+      const response = await fetch("/api/document-types");
+      if (!response.ok) throw new Error("Could not load document templates.");
+      const documentTypes = await response.json();
+      docTypeSelect.innerHTML = "";
+      documentTypes.forEach((documentType) => {
+        const option = document.createElement("option");
+        option.value = documentType.id;
+        option.textContent = documentType.name;
+        docTypeSelect.appendChild(option);
+      });
+      docTypeSelect.value = "frd";
+      await loadTemplateHelper();
+    } catch (error) {
+      docTypeSelect.innerHTML = '<option value="ssr">Safety Standard Report (SSR)</option>';
+      console.error(error);
+    }
+  }
+
+  docTypeSelect.addEventListener("change", loadTemplateHelper);
+
+  async function loadTemplateHelper() {
+    const selectedOption = docTypeSelect.options[docTypeSelect.selectedIndex];
+    if (!selectedOption || !docTypeSelect.value) return;
+
+    templateHelperTitle.textContent = "Prepare your document";
+    templateHelperSummary.innerHTML = "<strong>Tip:</strong> Use clear numbered headings and keep them in the same order as the selected template.";
+    templateSectionCount.textContent = "Loading...";
+    copyTemplateBtn.disabled = true;
+
+    try {
+      const response = await fetchWithTimeout(`/api/templates/${encodeURIComponent(docTypeSelect.value)}`);
+      if (!response.ok) throw new Error("Template requirements could not be loaded.");
+      const template = await response.json();
+      currentTemplate = template.template;
+      templateSectionCount.textContent = `${template.required_sections.length} sections`;
+      templateHelperSummary.innerHTML = "<strong>Tip:</strong> Check the required sections below before uploading your document.";
+      templateRequirementsPreview.textContent = `${template.required_sections.slice(0, 3).join(" • ")}${template.required_sections.length > 3 ? " • ..." : ""}`;
+      templateRequirements.classList.remove("hidden");
+      copyTemplateBtn.disabled = false;
+    } catch (error) {
+      templateHelperSummary.innerHTML = "<strong>Tip:</strong> Upload a PDF, DOCX, or TXT file to receive specific document suggestions.";
+      templateSectionCount.textContent = shortDocumentName(selectedOption.textContent);
+      templateRequirements.classList.add("hidden");
+      console.error(error);
+    }
+  }
+
+  async function fetchWithTimeout(url) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    try {
+      return await fetch(url, { signal: controller.signal });
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  function renderTemplateList(list, items, emptyMessage) {
+    list.innerHTML = "";
+    const visibleItems = items.slice(0, 4);
+    visibleItems.forEach((item) => {
+      const listItem = document.createElement("li");
+      listItem.textContent = item.replaceAll("_", " ");
+      list.appendChild(listItem);
+    });
+    if (items.length > visibleItems.length) {
+      const moreItem = document.createElement("li");
+      moreItem.className = "template-more";
+      moreItem.textContent = `+ ${items.length - visibleItems.length} more`;
+      list.appendChild(moreItem);
+    } else if (visibleItems.length === 0) {
+      const emptyItem = document.createElement("li");
+      emptyItem.className = "template-more";
+      emptyItem.textContent = emptyMessage;
+      list.appendChild(emptyItem);
+    }
+  }
+
+  function shortDocumentName(name) {
+    return name.replace(/\s*\([^)]*\)/, "").replace("Document", "Doc");
+  }
+
+  copyTemplateBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(currentTemplate);
+      copyFeedback.textContent = "Starter template copied";
+      setTimeout(() => { copyFeedback.textContent = ""; }, 2200);
+    } catch (error) {
+      copyFeedback.textContent = "Copy failed. Open the template endpoint instead.";
+    }
+  });
+
+  // 1. File Upload & Drag-and-Drop Handlers
+  browseBtn.addEventListener("click", () => fileInput.click());
+  dropzone.addEventListener("click", (e) => {
+    if (e.target !== clearFileBtn && !clearFileBtn.contains(e.target)) {
+      if (!currentSelectedFile) fileInput.click();
+    }
+  });
+
+  fileInput.addEventListener("change", (e) => {
+    if (e.target.files.length > 0) {
+      handleFileSelected(e.target.files[0]);
+    }
+  });
+
+  dropzone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropzone.classList.add("dragover");
+  });
+
+  dropzone.addEventListener("dragleave", () => {
+    dropzone.classList.remove("dragover");
+  });
+
+  dropzone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropzone.classList.remove("dragover");
+    if (e.dataTransfer.files.length > 0) {
+      handleFileSelected(e.dataTransfer.files[0]);
+    }
+  });
+
+  clearFileBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    clearSelectedFile();
+  });
+
+  function handleFileSelected(file) {
+    const ext = file.name.split(".").pop().toLowerCase();
+    if (!["pdf", "docx", "txt"].includes(ext)) {
+      alert("Unsupported file format! Please upload a .pdf, .docx, or .txt file.");
+      return;
+    }
+
+    currentSelectedFile = file;
+    selectedFileName.textContent = file.name;
+    selectedFileSize.textContent = formatBytes(file.size);
+
+    dropzonePrompt.classList.add("hidden");
+    fileSelectedState.classList.remove("hidden");
+    validateBtn.disabled = false;
+  }
+
+  function clearSelectedFile() {
+    currentSelectedFile = null;
+    fileInput.value = "";
+    selectedFileName.textContent = "";
+    selectedFileSize.textContent = "";
+
+    dropzonePrompt.classList.remove("hidden");
+    fileSelectedState.classList.add("hidden");
+    validateBtn.disabled = true;
+  }
+
+  function formatBytes(bytes) {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
+  }
+
+  // 2. Tab Switching logic
+  tabBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetTab = btn.getAttribute("data-tab");
+      tabBtns.forEach((b) => b.classList.remove("active"));
+      tabContents.forEach((c) => c.classList.remove("active"));
+
+      btn.classList.add("active");
+      document.getElementById(targetTab).classList.add("active");
+    });
+  });
+
+  // 3. Document Validation API Request
+  validateBtn.addEventListener("click", async () => {
+    if (!currentSelectedFile) return;
+
+    // Show loading state
+    validateBtn.disabled = true;
+    btnSpinner.classList.remove("hidden");
+
+    const formData = new FormData();
+    formData.append("file", currentSelectedFile);
+    formData.append("doc_type", docTypeSelect.value);
+
+    try {
+      const response = await fetch("/api/validate", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.detail || "Validation request failed.");
+      }
+
+      const report = await response.json();
+      renderValidationReport(report);
+    } catch (err) {
+      alert("Validation Error: " + err.message);
+    } finally {
+      validateBtn.disabled = false;
+      btnSpinner.classList.add("hidden");
+    }
+  });
+
+  // 4. Render Validation Results
+  function renderValidationReport(report) {
+    emptyState.classList.add("hidden");
+    resultsDashboard.classList.remove("hidden");
+
+    // Verdict Badge & Class
+    verdictBadge.textContent = report.decision;
+    verdictBadge.className = "verdict-badge";
+    if (report.decision === "ACCEPTED") {
+      verdictBadge.classList.add("accepted");
+      verdictSummary.textContent = "Your document matches the selected format and is ready for the next step.";
+      showResultCoach("accepted", "Great work!", "Your document is in good shape. You can submit it, share it, or keep a copy of this validation report.", "✓");
+    } else if (report.decision === "NEEDS MANUAL REVIEW") {
+      verdictBadge.classList.add("review");
+      verdictSummary.textContent = "The structure looks close, but a quick human review is recommended before submission.";
+      showResultCoach("review", "Almost there", "Review the highlighted details below, then upload the updated file if anything needs correcting.", "!");
+    } else {
+      verdictBadge.classList.add("rejected");
+      verdictSummary.textContent = "A few format checks need attention before this document can pass.";
+      showResultCoach("rejected", "A little tune-up will help", "Check the missing items below, add the required headings or fields, and upload the revised file again.", "↻");
+    }
+
+    reportDocMeta.textContent = `${report.doc_type} (${report.filename})`;
+
+    // Metrics Bar
+    const confidencePct = Math.round(report.ml_confidence * 100);
+    mlScoreVal.textContent = `${confidencePct}%`;
+    mlScoreFill.style.width = `${confidencePct}%`;
+
+    wordCountVal.textContent = report.word_count;
+    orderVal.textContent = report.order_ok ? "Correct" : "Shuffled";
+    ruleVal.textContent = report.rule_passed ? "PASSED" : "FAILED";
+
+    // Checklist Table
+    checklistTableBody.innerHTML = "";
+
+    // Sections
+    report.sections.forEach((sec) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><strong>${sec.name}</strong> (Section)</td>
+        <td><span class="tag-status ${sec.found ? "found" : "missing"}">${sec.found ? "✔ FOUND" : "✖ MISSING"}</span></td>
+        <td>${sec.found ? `Position char ${sec.position}` : "Required section missing"}</td>
+      `;
+      checklistTableBody.appendChild(tr);
+    });
+
+    // Mandatory Fields
+    Object.entries(report.mandatory_fields).forEach(([key, info]) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><strong>${capitalize(key)}</strong> (Field)</td>
+        <td><span class="tag-status ${info.found ? "found" : "missing"}">${info.found ? "✔ FOUND" : "✖ MISSING"}</span></td>
+        <td>${info.description}</td>
+      `;
+      checklistTableBody.appendChild(tr);
+    });
+
+    // Actionable Remarks List
+    remarksList.innerHTML = "";
+    if (report.reasons.length === 0) {
+      remarksList.innerHTML = `<li>✔ No compliance issues detected. Format is valid.</li>`;
+    } else {
+      report.reasons.forEach((reason) => {
+        const li = document.createElement("li");
+        li.textContent = `• ${reason}`;
+        remarksList.appendChild(li);
+      });
+    }
+
+    // Extracted Text Preview
+    extractedTextCode.textContent = report.extracted_text || "No text content.";
+  }
+
+  function showResultCoach(type, title, text, icon) {
+    resultCoach.className = `result-coach ${type}`;
+    resultCoachIcon.textContent = icon;
+    resultCoachTitle.textContent = title;
+    resultCoachText.textContent = text;
+  }
+
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+});
