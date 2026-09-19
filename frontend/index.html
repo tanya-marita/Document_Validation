@@ -215,22 +215,52 @@
             <div class="details-card glass">
               <div class="card-tabs-header">
                 <button class="tab-btn active" data-tab="remarksTab">Actionable Remarks</button>
-                  <span class="tips-eyebrow">💡 How it works</span>
-                  <h4 id="templateHelperTitle">AI document coach</h4>
-
-              <div class="tab-content active" id="remarksTab">
-                <ul class="remarks-list" id="remarksList">
-              <p class="tips-summary" id="templateHelperSummary"><strong>Rule engine:</strong> checks headings, fields, dates, and order.</p>
-                </ul>
+                <button class="tab-btn" data-tab="previewTab">Extracted Text Preview</button>
               </div>
-                  <span class="helper-label">Before uploading</span>
+              <div class="tab-content active" id="remarksTab">
+                <ul class="remarks-list" id="remarksList"></ul>
+              </div>
               <div class="tab-content" id="previewTab">
                 <pre class="text-preview-code" id="extractedTextCode">Select file to view extracted text...</pre>
               </div>
             </div>
           </div>
         </div>
-                  <span class="helper-label">AI classifier</span>
+      </section>
+
+      <!-- AI guidance rail -->
+      <aside class="ai-rail">
+        <section class="ai-coach-card glass">
+          <div class="rail-heading">
+            <div class="rail-icon" aria-hidden="true">✦</div>
+            <div>
+              <h2>AI Document Coach</h2>
+              <p>Intelligent remediation guide</p>
+            </div>
+            <span class="rail-status">Active</span>
+          </div>
+          <div class="coach-finding">
+            <span class="coach-label">Primary finding</span>
+            <strong id="railCoachTitle">Ready to inspect</strong>
+            <p id="railCoachText">Upload a document to receive clear, practical guidance on what to improve.</p>
+          </div>
+          <div class="coach-next-steps">
+            <span class="coach-label">Before you upload</span>
+            <p>Use the selected template's headings, keep them in order, and include dates or approval details.</p>
+          </div>
+          <div class="coach-input">
+            <span>Ask AI Coach about this document</span>
+            <span aria-hidden="true">→</span>
+          </div>
+        </section>
+        <section class="trust-card glass">
+          <span class="trust-icon" aria-hidden="true">♡</span>
+          <div>
+            <strong>Trust &amp; Compliance Certified</strong>
+            <p>Validation is rule-based and explainable. Your document stays in this local workspace.</p>
+          </div>
+        </section>
+      </aside>
     </main>
   </div>
 

@@ -31,6 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultCoachIcon = document.getElementById("resultCoachIcon");
   const resultCoachTitle = document.getElementById("resultCoachTitle");
   const resultCoachText = document.getElementById("resultCoachText");
+  const railCoachTitle = document.getElementById("railCoachTitle");
+  const railCoachText = document.getElementById("railCoachText");
 
   const mlScoreFill = document.getElementById("mlScoreFill");
   const mlScoreVal = document.getElementById("mlScoreVal");
@@ -301,14 +303,17 @@ document.addEventListener("DOMContentLoaded", () => {
       verdictBadge.classList.add("accepted");
       verdictSummary.textContent = "Your document matches the selected format and is ready for the next step.";
       showResultCoach("accepted", "Great work!", "Your document is in good shape. You can submit it, share it, or keep a copy of this validation report.", "✓");
+      showRailCoach("Ready to submit", "Your document matches the selected template. Keep this report with your final document.");
     } else if (report.decision === "NEEDS MANUAL REVIEW") {
       verdictBadge.classList.add("review");
       verdictSummary.textContent = "The structure looks close, but a quick human review is recommended before submission.";
       showResultCoach("review", "Almost there", "Review the highlighted details below, then upload the updated file if anything needs correcting.", "!");
+      showRailCoach("Review before sending", "The structure is close. Check the highlighted items and confirm the document with a reviewer.");
     } else {
       verdictBadge.classList.add("rejected");
       verdictSummary.textContent = "A few format checks need attention before this document can pass.";
       showResultCoach("rejected", "A little tune-up will help", "Check the missing items below, add the required headings or fields, and upload the revised file again.", "↻");
+      showRailCoach("A few items need attention", "Start with the missing items below. Add them to your document, then run validation again.");
     }
 
     reportDocMeta.textContent = `${report.doc_type} (${report.filename})`;
@@ -368,6 +373,11 @@ document.addEventListener("DOMContentLoaded", () => {
     resultCoachIcon.textContent = icon;
     resultCoachTitle.textContent = title;
     resultCoachText.textContent = text;
+  }
+
+  function showRailCoach(title, text) {
+    railCoachTitle.textContent = title;
+    railCoachText.textContent = text;
   }
 
   function capitalize(str) {
