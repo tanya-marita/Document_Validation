@@ -1,0 +1,21 @@
+{
+  "_comment":"Software Test Design (STD) template specification",
+  "required_sections":[
+    {"name":"Introduction","keywords":["introduction","purpose"],"order":1},
+    {"name":"Test Design Overview","keywords":["test design overview","test design"],"order":2},
+    {"name":"Test Conditions","keywords":["test conditions","conditions"],"order":3},
+    {"name":"Test Cases","keywords":["test cases","test case"],"order":4},
+    {"name":"Test Data","keywords":["test data","data setup"],"order":5},
+    {"name":"Expected Results","keywords":["expected results","expected result"],"order":6},
+    {"name":"Traceability","keywords":["traceability","requirements traceability"],"order":7},
+    {"name":"Pass and Fail Criteria","keywords":["pass and fail criteria","pass criteria","fail criteria"],"order":8},
+    {"name":"Appendices","keywords":["appendices","appendix"],"order":9}
+  ],
+  "mandatory_fields":{
+    "test_case_id":{"pattern":"TC-\\d+|STD-\\d+","description":"Must contain test case identifiers such as STD-01."},
+    "expected_result":{"keywords":["expected result","expected results"],"description":"Must define expected outcomes."},
+    "test_data":{"keywords":["test data","input data"],"description":"Must define test inputs or data."}
+  },
+  "min_word_count":100,
+  "enforce_section_order":true
+}

@@ -1,0 +1,22 @@
+{
+  "_comment":"Low Level Design (LLD) template specification",
+  "required_sections":[
+    {"name":"Introduction","keywords":["introduction","purpose"],"order":1},
+    {"name":"Module Design","keywords":["module design","modules"],"order":2},
+    {"name":"Class and Component Design","keywords":["class and component design","class design","components"],"order":3},
+    {"name":"Data Model and Database Design","keywords":["data model and database design","data model","database design"],"order":4},
+    {"name":"API and Interface Design","keywords":["api and interface design","api design","interfaces"],"order":5},
+    {"name":"Algorithms and Workflows","keywords":["algorithms and workflows","algorithms","workflows"],"order":6},
+    {"name":"Error Handling and Logging","keywords":["error handling and logging","error handling","logging"],"order":7},
+    {"name":"Security Design","keywords":["security design","security"],"order":8},
+    {"name":"Traceability","keywords":["traceability","requirements traceability"],"order":9},
+    {"name":"Appendices","keywords":["appendices","appendix"],"order":10}
+  ],
+  "mandatory_fields":{
+    "component_id":{"pattern":"(CMP|MOD|COMP)-\\d+","description":"Must identify components or modules with unique IDs."},
+    "interface_definition":{"keywords":["interface","endpoint","method"],"description":"Must define component interfaces or endpoints."},
+    "exception_handling":{"keywords":["exception handling","error handling","errors"],"description":"Must describe error and exception handling."}
+  },
+  "min_word_count":120,
+  "enforce_section_order":true
+}

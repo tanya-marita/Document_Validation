@@ -1,0 +1,21 @@
+{
+  "_comment":"Software Requirements Specification (SRS) template specification",
+  "required_sections":[
+    {"name":"Introduction","keywords":["1. introduction","introduction"],"order":1},
+    {"name":"Overall Description","keywords":["overall description","product perspective"],"order":2},
+    {"name":"Functional Requirements","keywords":["functional requirements","system features"],"order":3},
+    {"name":"Non-Functional Requirements","keywords":["non-functional requirements","performance requirements"],"order":4},
+    {"name":"External Interfaces","keywords":["external interfaces","user interfaces","software interfaces"],"order":5},
+    {"name":"Data Requirements","keywords":["data requirements","database requirements"],"order":6},
+    {"name":"Constraints and Assumptions","keywords":["constraints and assumptions","constraints","assumptions"],"order":7},
+    {"name":"Acceptance Criteria","keywords":["acceptance criteria","verification criteria"],"order":8},
+    {"name":"Appendices","keywords":["appendices","appendix"],"order":9}
+  ],
+  "mandatory_fields":{
+    "requirement_id":{"pattern":"REQ-\\d+|SRS-\\d+","description":"Must contain requirement identifiers such as REQ-01 or SRS-01."},
+    "priority":{"keywords":["priority","high","medium","low"],"description":"Requirements must include priorities."},
+    "acceptance_criteria":{"keywords":["acceptance criteria","shall","must"],"description":"Requirements must define verifiable acceptance criteria."}
+  },
+  "min_word_count":120,
+  "enforce_section_order":true
+}

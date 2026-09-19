@@ -1,0 +1,23 @@
+{
+  "_comment":"Product Requirements Document (PRD) template specification",
+  "required_sections":[
+    {"name":"Product Overview","keywords":["product overview","overview"],"order":1},
+    {"name":"Problem Statement","keywords":["problem statement","user problem"],"order":2},
+    {"name":"Goals and Objectives","keywords":["goals and objectives","product goals","objectives"],"order":3},
+    {"name":"Users and Personas","keywords":["users and personas","personas","target users"],"order":4},
+    {"name":"User Stories","keywords":["user stories","user story"],"order":5},
+    {"name":"Features and Requirements","keywords":["features and requirements","product requirements","features"],"order":6},
+    {"name":"User Experience","keywords":["user experience","ux","user interface"],"order":7},
+    {"name":"Success Metrics","keywords":["success metrics","metrics","key performance indicators"],"order":8},
+    {"name":"Release Plan","keywords":["release plan","roadmap","milestones"],"order":9},
+    {"name":"Risks and Dependencies","keywords":["risks and dependencies","risks","dependencies"],"order":10},
+    {"name":"Appendices","keywords":["appendices","appendix"],"order":11}
+  ],
+  "mandatory_fields":{
+    "product_owner":{"keywords":["product owner","product manager"],"description":"Must identify the product owner or product manager."},
+    "user_story":{"keywords":["as a user","user story","user stories"],"description":"Must include user stories or equivalent user needs."},
+    "acceptance_criteria":{"keywords":["acceptance criteria","definition of done"],"description":"Must define how product requirements are accepted."}
+  },
+  "min_word_count":120,
+  "enforce_section_order":true
+}

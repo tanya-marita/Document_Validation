@@ -1,0 +1,22 @@
+{
+  "_comment":"User Manual (UM) template specification",
+  "required_sections":[
+    {"name":"Introduction","keywords":["introduction","about this manual"],"order":1},
+    {"name":"System Requirements","keywords":["system requirements","prerequisites","operating environment"],"order":2},
+    {"name":"Getting Started","keywords":["getting started","installation","setup"],"order":3},
+    {"name":"Login and Access","keywords":["login and access","login","sign in"],"order":4},
+    {"name":"Using the System","keywords":["using the system","how to use","workflow"],"order":5},
+    {"name":"Features and Procedures","keywords":["features and procedures","features","procedures"],"order":6},
+    {"name":"Troubleshooting","keywords":["troubleshooting","common issues","error"],"order":7},
+    {"name":"Frequently Asked Questions","keywords":["frequently asked questions","faq"],"order":8},
+    {"name":"Support and Contact","keywords":["support and contact","support","contact"],"order":9},
+    {"name":"Appendices","keywords":["appendices","appendix"],"order":10}
+  ],
+  "mandatory_fields":{
+    "version":{"pattern":"v?\\d+\\.\\d+|version\\s*[:#]?\\s*\\d+","description":"Must identify the manual version."},
+    "prerequisites":{"keywords":["prerequisites","system requirements","before you begin"],"description":"Must state prerequisites."},
+    "support":{"keywords":["support","contact","help desk"],"description":"Must provide support information."}
+  },
+  "min_word_count":100,
+  "enforce_section_order":true
+}

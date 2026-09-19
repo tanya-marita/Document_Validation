@@ -1,0 +1,34 @@
+{
+  "_comment": "System Architecture Document (SAD) Template Specification",
+
+  "required_sections": [
+    { "name": "Introduction",                            "keywords": ["1. introduction", "introduction"],                              "order": 1 },
+    { "name": "Conceptual High-Level Design",             "keywords": ["2. conceptual high-level design", "high-level design"],          "order": 2 },
+    { "name": "Core Tech Stack and Integration Blueprints","keywords": ["3. core tech stack", "tech stack and integration"],           "order": 3 },
+    { "name": "Non-Functional Architectural Provisions", "keywords": ["4. non-functional architectural provisions", "security blueprint"],"order": 4 },
+    { "name": "Validation Rules",                        "keywords": ["5. validation rules", "validation criteria"],                     "order": 5 },
+    { "name": "Appendices",                              "keywords": ["6. appendices", "appendix"],                                     "order": 6 }
+  ],
+
+  "mandatory_fields": {
+    "component_registry": {
+      "pattern": "ARCH-\\d+",
+      "description": "Must contain explicit architectural component registry identifiers (e.g. ARCH-01, ARCH-02)."
+    },
+    "architecture_diagram": {
+      "keywords": ["architecture diagram view", "2.1 architecture diagram"],
+      "description": "Must reference or describe high-level architecture diagram view."
+    },
+    "security_blueprint": {
+      "keywords": ["security blueprint", "tls", "iam", "encryption"],
+      "description": "Must include explicit Security Blueprint detailing encryption and access control."
+    },
+    "scalability_rules": {
+      "keywords": ["scalability and resiliency", "load balancing", "horizontal scaling"],
+      "description": "Must detail Scalability and Resiliency rules."
+    }
+  },
+
+  "min_word_count": 110,
+  "enforce_section_order": true
+}

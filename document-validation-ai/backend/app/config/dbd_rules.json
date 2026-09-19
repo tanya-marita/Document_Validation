@@ -1,0 +1,22 @@
+{
+  "_comment":"Database Design Document (DBD) template specification",
+  "required_sections":[
+    {"name":"Introduction","keywords":["introduction","purpose"],"order":1},
+    {"name":"Database Overview","keywords":["database overview","overview"],"order":2},
+    {"name":"Data Model","keywords":["data model","entity relationship model","er model"],"order":3},
+    {"name":"Tables and Columns","keywords":["tables and columns","table definitions","columns"],"order":4},
+    {"name":"Keys and Relationships","keywords":["keys and relationships","primary key","foreign key"],"order":5},
+    {"name":"Indexes and Constraints","keywords":["indexes and constraints","indexes","constraints"],"order":6},
+    {"name":"Data Migration and Seeding","keywords":["data migration and seeding","migration","seeding"],"order":7},
+    {"name":"Security and Access","keywords":["security and access","database security","access control"],"order":8},
+    {"name":"Backup and Recovery","keywords":["backup and recovery","backup","recovery"],"order":9},
+    {"name":"Appendices","keywords":["appendices","appendix"],"order":10}
+  ],
+  "mandatory_fields":{
+    "database_name":{"keywords":["database name","schema name","database"],"description":"Must identify the database or schema."},
+    "primary_key":{"keywords":["primary key","pk"],"description":"Must define primary keys."},
+    "foreign_key":{"keywords":["foreign key","fk","relationship"],"description":"Must define relationships between tables."}
+  },
+  "min_word_count":100,
+  "enforce_section_order":true
+}

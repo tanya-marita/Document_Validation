@@ -1,0 +1,38 @@
+{
+  "_comment": "Feasibility Study Report (FSR) Template Specification",
+
+  "required_sections": [
+    { "name": "Introduction",                        "keywords": ["1. introduction", "introduction"],                               "order": 1 },
+    { "name": "Feasibility Assessment Dimensions",  "keywords": ["2. feasibility assessment dimensions", "feasibility assessment"], "order": 2 },
+    { "name": "Risk and Alternatives Matrix",        "keywords": ["3. risk and alternatives matrix", "risk profiling"],             "order": 3 },
+    { "name": "Final Recommendations",               "keywords": ["4. final recommendations", "recommendations"],                     "order": 4 },
+    { "name": "Validation Rules",                    "keywords": ["5. validation rules", "validation criteria"],                      "order": 5 },
+    { "name": "Appendices",                          "keywords": ["6. appendices", "appendix"],                                      "order": 6 }
+  ],
+
+  "mandatory_fields": {
+    "technical_feasibility": {
+      "keywords": ["technical feasibility", "2.1 technical feasibility"],
+      "description": "Must contain explicit Technical Feasibility assessment pillar."
+    },
+    "economic_feasibility": {
+      "keywords": ["economic feasibility", "2.2 economic feasibility", "tco", "npv"],
+      "description": "Must contain explicit Economic Feasibility assessment pillar with TCO / NPV evaluation."
+    },
+    "operational_feasibility": {
+      "keywords": ["operational feasibility", "2.3 operational feasibility"],
+      "description": "Must contain explicit Operational Feasibility assessment pillar."
+    },
+    "legal_feasibility": {
+      "keywords": ["legal and compliance feasibility", "2.4 legal", "gdpr", "hipaa"],
+      "description": "Must contain explicit Legal and Compliance Feasibility assessment pillar."
+    },
+    "evaluation_verdict": {
+      "keywords": ["evaluation verdict", "proceed", "pivot", "cancel"],
+      "description": "Must declare explicit Evaluation Verdict (Proceed, Pivot, or Cancel)."
+    }
+  },
+
+  "min_word_count": 100,
+  "enforce_section_order": true
+}

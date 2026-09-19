@@ -1,0 +1,23 @@
+{
+  "_comment":"Technical Design Document (TDD) template specification",
+  "required_sections":[
+    {"name":"Introduction","keywords":["introduction","purpose"],"order":1},
+    {"name":"Technical Overview","keywords":["technical overview","overview"],"order":2},
+    {"name":"System Architecture","keywords":["system architecture","architecture"],"order":3},
+    {"name":"Detailed Design","keywords":["detailed design","design details"],"order":4},
+    {"name":"Technology Stack","keywords":["technology stack","technologies"],"order":5},
+    {"name":"API Design","keywords":["api design","api specification","endpoints"],"order":6},
+    {"name":"Data Design","keywords":["data design","data model","database"],"order":7},
+    {"name":"Security and Performance","keywords":["security and performance","security","performance"],"order":8},
+    {"name":"Testing Strategy","keywords":["testing strategy","testing"],"order":9},
+    {"name":"Deployment and Operations","keywords":["deployment and operations","deployment","operations"],"order":10},
+    {"name":"Appendices","keywords":["appendices","appendix"],"order":11}
+  ],
+  "mandatory_fields":{
+    "design_id":{"pattern":"TDD-\\d+|DES-\\d+","description":"Must contain technical design identifiers such as TDD-01."},
+    "technology_stack":{"keywords":["technology stack","framework","database"],"description":"Must state the selected technologies."},
+    "test_strategy":{"keywords":["testing strategy","unit test","integration test"],"description":"Must define the testing approach."}
+  },
+  "min_word_count":120,
+  "enforce_section_order":true
+}

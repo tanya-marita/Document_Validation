@@ -1,0 +1,22 @@
+{
+  "_comment":"User Acceptance Testing (UAT) template specification",
+  "required_sections":[
+    {"name":"Introduction","keywords":["introduction","purpose"],"order":1},
+    {"name":"Scope and Objectives","keywords":["scope and objectives","scope","objectives"],"order":2},
+    {"name":"User Roles and Test Environment","keywords":["user roles and test environment","test environment","user roles"],"order":3},
+    {"name":"Entry and Exit Criteria","keywords":["entry and exit criteria","entry criteria","exit criteria"],"order":4},
+    {"name":"Test Scenarios","keywords":["test scenarios","scenarios"],"order":5},
+    {"name":"Test Cases","keywords":["test cases","test case"],"order":6},
+    {"name":"Defect Management","keywords":["defect management","defects","bugs"],"order":7},
+    {"name":"Results and Sign-Off","keywords":["results and sign-off","test results","sign-off"],"order":8},
+    {"name":"Appendices","keywords":["appendices","appendix"],"order":9}
+  ],
+  "mandatory_fields":{
+    "test_case_id":{"pattern":"TC-\\d+|UAT-\\d+","description":"Must contain test case identifiers such as UAT-01."},
+    "expected_result":{"keywords":["expected result","expected outcome"],"description":"Each test case must define an expected result."},
+    "actual_result":{"keywords":["actual result","actual outcome"],"description":"Executed tests must record an actual result."},
+    "sign_off":{"keywords":["sign-off","approved by","acceptance approval"],"description":"Must include stakeholder sign-off."}
+  },
+  "min_word_count":100,
+  "enforce_section_order":true
+}

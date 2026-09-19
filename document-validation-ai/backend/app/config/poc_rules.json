@@ -1,0 +1,30 @@
+{
+  "_comment": "Proof of Concept (POC) Document Template Specification",
+
+  "required_sections": [
+    { "name": "Introduction",                                "keywords": ["1. introduction", "introduction"],                            "order": 1 },
+    { "name": "Validation Success Metrics",                  "keywords": ["2. validation success metrics", "acceptance benchmarks"],    "order": 2 },
+    { "name": "Prototyping Scope and Architecture Details",  "keywords": ["3. prototyping scope", "prototype core components"],           "order": 3 },
+    { "name": "Findings and Transition Road Map",            "keywords": ["4. findings and transition road map", "evaluation summary"],  "order": 4 },
+    { "name": "Validation Rules",                            "keywords": ["5. validation rules", "validation criteria"],                 "order": 5 },
+    { "name": "Appendices",                                  "keywords": ["6. appendices", "appendix"],                                  "order": 6 }
+  ],
+
+  "mandatory_fields": {
+    "criterion_id": {
+      "pattern": "CRIT-\\d+",
+      "description": "Must contain explicit benchmark criterion identifiers (e.g. CRIT-01)."
+    },
+    "poc_id": {
+      "pattern": "POC-\\d+",
+      "description": "Must contain explicit prototype feature identifiers (e.g. POC-01)."
+    },
+    "evaluation_summary": {
+      "keywords": ["evaluation summary", "pass", "failed", "recommendations for scale"],
+      "description": "Must include explicit Evaluation Summary declaring pass/fail findings."
+    }
+  },
+
+  "min_word_count": 90,
+  "enforce_section_order": true
+}

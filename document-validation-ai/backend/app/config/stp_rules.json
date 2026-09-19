@@ -1,0 +1,22 @@
+{
+  "_comment":"Software Test Plan (STP) template specification",
+  "required_sections":[
+    {"name":"Introduction","keywords":["introduction","purpose"],"order":1},
+    {"name":"Test Objectives","keywords":["test objectives","objectives"],"order":2},
+    {"name":"Scope of Testing","keywords":["scope of testing","test scope"],"order":3},
+    {"name":"Test Strategy","keywords":["test strategy","testing strategy"],"order":4},
+    {"name":"Test Environment","keywords":["test environment","environment"],"order":5},
+    {"name":"Test Schedule and Resources","keywords":["test schedule and resources","test schedule","resources"],"order":6},
+    {"name":"Entry and Exit Criteria","keywords":["entry and exit criteria","entry criteria","exit criteria"],"order":7},
+    {"name":"Risks and Mitigations","keywords":["risks and mitigations","test risks","mitigations"],"order":8},
+    {"name":"Deliverables","keywords":["deliverables","test deliverables"],"order":9},
+    {"name":"Appendices","keywords":["appendices","appendix"],"order":10}
+  ],
+  "mandatory_fields":{
+    "test_manager":{"keywords":["test manager","test lead"],"description":"Must identify the test manager or test lead."},
+    "test_types":{"keywords":["unit testing","integration testing","system testing","acceptance testing"],"description":"Must identify planned test types."},
+    "entry_criteria":{"keywords":["entry criteria"],"description":"Must define entry criteria."}
+  },
+  "min_word_count":100,
+  "enforce_section_order":true
+}

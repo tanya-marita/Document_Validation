@@ -1,0 +1,21 @@
+{
+  "_comment": "Business Requirements Document (BRD) template specification",
+  "required_sections": [
+    {"name":"Executive Summary","keywords":["executive summary","summary"],"order":1},
+    {"name":"Business Objectives","keywords":["business objectives","objectives"],"order":2},
+    {"name":"Stakeholders","keywords":["stakeholders","stakeholder analysis"],"order":3},
+    {"name":"Scope","keywords":["scope","in scope","out of scope"],"order":4},
+    {"name":"Business Requirements","keywords":["business requirements","business requirement"],"order":5},
+    {"name":"Assumptions and Constraints","keywords":["assumptions and constraints","assumptions","constraints"],"order":6},
+    {"name":"Risks","keywords":["risks","risk management"],"order":7},
+    {"name":"Acceptance Criteria","keywords":["acceptance criteria","acceptance"],"order":8},
+    {"name":"Appendices","keywords":["appendices","appendix"],"order":9}
+  ],
+  "mandatory_fields": {
+    "requirement_id":{"pattern":"BR-\\d+","description":"Must contain business requirement identifiers such as BR-01."},
+    "business_owner":{"keywords":["business owner","sponsor","stakeholder"],"description":"Must identify the business owner or sponsor."},
+    "priority":{"keywords":["priority","high","medium","low"],"description":"Requirements must include priorities."}
+  },
+  "min_word_count":100,
+  "enforce_section_order":true
+}

@@ -1,0 +1,23 @@
+{
+  "_comment":"High Level Design (HLD) template specification",
+  "required_sections":[
+    {"name":"Introduction","keywords":["introduction","purpose"],"order":1},
+    {"name":"Architecture Overview","keywords":["architecture overview","system architecture"],"order":2},
+    {"name":"System Context","keywords":["system context","context diagram"],"order":3},
+    {"name":"Component Architecture","keywords":["component architecture","components"],"order":4},
+    {"name":"Data Architecture","keywords":["data architecture","data flow"],"order":5},
+    {"name":"Integration and Interfaces","keywords":["integration and interfaces","interfaces","api"],"order":6},
+    {"name":"Security Architecture","keywords":["security architecture","security"],"order":7},
+    {"name":"Deployment Architecture","keywords":["deployment architecture","deployment"],"order":8},
+    {"name":"Performance and Scalability","keywords":["performance and scalability","scalability","performance"],"order":9},
+    {"name":"Risks and Decisions","keywords":["risks and decisions","risks","design decisions"],"order":10},
+    {"name":"Appendices","keywords":["appendices","appendix"],"order":11}
+  ],
+  "mandatory_fields":{
+    "architecture_owner":{"keywords":["solution architect","architect","architecture owner"],"description":"Must identify the architecture owner or solution architect."},
+    "technology_stack":{"keywords":["technology stack","technologies","platform"],"description":"Must describe the technology stack."},
+    "diagram":{"keywords":["diagram","architecture diagram","component diagram"],"description":"Must reference architecture diagrams."}
+  },
+  "min_word_count":120,
+  "enforce_section_order":true
+}

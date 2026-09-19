@@ -1,0 +1,25 @@
+{
+  "_comment": "Safety Standard Report Specification",
+  "required_sections": [
+    { "name": "Title",           "keywords": ["title"],                                 "order": 1 },
+    { "name": "Introduction",    "keywords": ["introduction", "purpose"],               "order": 2 },
+    { "name": "Scope",           "keywords": ["scope"],                                 "order": 3 },
+    { "name": "Methodology",     "keywords": ["methodology", "method", "approach"],     "order": 4 },
+    { "name": "Findings",        "keywords": ["findings", "results", "observations"],   "order": 5 },
+    { "name": "Recommendations", "keywords": ["recommendations", "recommendation"],     "order": 6 },
+    { "name": "Conclusion",      "keywords": ["conclusion", "summary"],                 "order": 7 },
+    { "name": "Signature",       "keywords": ["signature", "signed by", "approved by"], "order": 8 }
+  ],
+  "mandatory_fields": {
+    "date": {
+      "pattern": "\\d{1,2}[/-]\\d{1,2}[/-]\\d{2,4}|\\d{4}-\\d{2}-\\d{2}",
+      "description": "A date must appear somewhere in the document."
+    },
+    "signature": {
+      "keywords": ["signature", "signed by", "approved by", "authorized by"],
+      "description": "There must be a signature or approval line."
+    }
+  },
+  "min_word_count": 80,
+  "enforce_section_order": true
+}

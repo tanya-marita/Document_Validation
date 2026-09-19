@@ -1,0 +1,36 @@
+{
+  "_comment": "Functional Requirements Document (FRD) Template Specification",
+
+  "required_sections": [
+    { "name": "Introduction",                    "keywords": ["1. introduction", "introduction"],                    "order": 1 },
+    { "name": "Functional Overview",             "keywords": ["2. functional overview", "functional overview"],        "order": 2 },
+    { "name": "Functional Requirements",         "keywords": ["3. functional requirements", "detailed functional"],   "order": 3 },
+    { "name": "External Interface Requirements", "keywords": ["4. external interface requirements", "user interface"], "order": 4 },
+    { "name": "Business Rules",                  "keywords": ["5. business rules", "rules and constraints"],         "order": 5 },
+    { "name": "Non-Functional Requirements",     "keywords": ["6. non-functional requirements", "performance"],      "order": 6 },
+    { "name": "Validation Rules",                "keywords": ["7. validation rules", "scoring criteria"],            "order": 7 },
+    { "name": "Appendices",                      "keywords": ["8. appendices", "appendix"],                          "order": 8 }
+  ],
+
+  "mandatory_fields": {
+    "requirement_id": {
+      "pattern": "FR-\\d+",
+      "description": "Must contain explicit requirement identifiers (e.g. FR-01, FR-02)."
+    },
+    "system_functions": {
+      "keywords": ["system functions", "2.1 system functions"],
+      "description": "Must list core system functions."
+    },
+    "user_classes": {
+      "keywords": ["user classes", "registered user", "admin"],
+      "description": "Must describe user classes and characteristics."
+    },
+    "scoring_criteria": {
+      "keywords": ["scoring criteria", "accept", "needs improvement", "reject"],
+      "description": "Must specify FRD scoring criteria ranges (75-100 Accept, 50-74 Needs Improvement, 0-49 Reject)."
+    }
+  },
+
+  "min_word_count": 120,
+  "enforce_section_order": true
+}

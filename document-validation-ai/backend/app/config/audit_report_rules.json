@@ -1,0 +1,24 @@
+{
+  "_comment": "Audit & Compliance Report Rules",
+  "required_sections": [
+    { "name": "Title",               "keywords": ["title", "audit report"],                       "order": 1 },
+    { "name": "Executive Summary",   "keywords": ["executive summary", "summary", "overview"],    "order": 2 },
+    { "name": "Scope",               "keywords": ["scope", "audit scope", "coverage"],            "order": 3 },
+    { "name": "Findings",            "keywords": ["findings", "observations", "audit findings"], "order": 4 },
+    { "name": "Risk Assessment",     "keywords": ["risk assessment", "risk level", "impact"],     "order": 5 },
+    { "name": "Recommendations",     "keywords": ["recommendations", "corrective actions"],       "order": 6 },
+    { "name": "Sign-off",            "keywords": ["sign-off", "auditor signature", "approved by"], "order": 7 }
+  ],
+  "mandatory_fields": {
+    "audit_date": {
+      "pattern": "\\d{1,2}[/-]\\d{1,2}[/-]\\d{2,4}|\\d{4}-\\d{2}-\\d{2}",
+      "description": "An audit date must be included."
+    },
+    "auditor": {
+      "keywords": ["auditor", "lead auditor", "reviewed by", "certified by"],
+      "description": "Lead auditor or review authority name."
+    }
+  },
+  "min_word_count": 60,
+  "enforce_section_order": true
+}

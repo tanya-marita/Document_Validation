@@ -1,0 +1,27 @@
+{
+  "_comment": "Technical Specification Rules",
+  "required_sections": [
+    { "name": "Title",                 "keywords": ["title", "specification title"],               "order": 1 },
+    { "name": "Overview",              "keywords": ["overview", "abstract", "summary"],             "order": 2 },
+    { "name": "System Architecture",   "keywords": ["architecture", "system architecture", "design"], "order": 3 },
+    { "name": "Requirements",          "keywords": ["requirements", "specifications", "functional"], "order": 4 },
+    { "name": "Testing",               "keywords": ["testing", "test plan", "verification"],       "order": 5 },
+    { "name": "Approvals",             "keywords": ["approvals", "sign-off", "signature"],          "order": 6 }
+  ],
+  "mandatory_fields": {
+    "version": {
+      "pattern": "v?\\d+\\.\\d+(\\.\\d+)?",
+      "description": "A version number must appear in the specification (e.g. v1.0 or 2.1.0)."
+    },
+    "date": {
+      "pattern": "\\d{1,2}[/-]\\d{1,2}[/-]\\d{2,4}|\\d{4}-\\d{2}-\\d{2}",
+      "description": "A release date must appear in the document."
+    },
+    "author": {
+      "keywords": ["author", "prepared by", "written by", "creator"],
+      "description": "Author or owner of the technical specification."
+    }
+  },
+  "min_word_count": 50,
+  "enforce_section_order": true
+}

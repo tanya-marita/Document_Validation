@@ -1,0 +1,22 @@
+{
+  "_comment":"Requirements Traceability Matrix (RTM) template specification",
+  "required_sections":[
+    {"name":"Introduction","keywords":["introduction","purpose"],"order":1},
+    {"name":"Requirements Source","keywords":["requirements source","source requirements","requirements"],"order":2},
+    {"name":"Traceability Matrix","keywords":["traceability matrix","requirements traceability"],"order":3},
+    {"name":"Design Mapping","keywords":["design mapping","design reference"],"order":4},
+    {"name":"Test Mapping","keywords":["test mapping","test case mapping","test cases"],"order":5},
+    {"name":"Coverage Analysis","keywords":["coverage analysis","coverage"],"order":6},
+    {"name":"Status and Gaps","keywords":["status and gaps","gaps","status"],"order":7},
+    {"name":"Approvals","keywords":["approvals","approved by","sign-off"],"order":8},
+    {"name":"Appendices","keywords":["appendices","appendix"],"order":9}
+  ],
+  "mandatory_fields":{
+    "requirement_id":{"pattern":"REQ-\\d+|FR-\\d+|BR-\\d+","description":"Must include a source requirement identifier."},
+    "design_reference":{"keywords":["design reference","design id","component"],"description":"Must map requirements to design references."},
+    "test_reference":{"keywords":["test reference","test case","test id"],"description":"Must map requirements to test references."},
+    "status":{"keywords":["status","covered","not covered","complete"],"description":"Must record traceability status."}
+  },
+  "min_word_count":100,
+  "enforce_section_order":true
+}

@@ -1,0 +1,30 @@
+{
+  "_comment": "Research and Development (R&D) Document Template Specification",
+
+  "required_sections": [
+    { "name": "Introduction",                                "keywords": ["1. introduction", "introduction"],                              "order": 1 },
+    { "name": "Experimental Objectives and Methodology",      "keywords": ["2. experimental objectives", "research hypotheses"],             "order": 2 },
+    { "name": "Experimental Controls and Executions",        "keywords": ["3. experimental controls", "core experiment specs"],             "order": 3 },
+    { "name": "Discoveries and Technical Verdict",            "keywords": ["4. discoveries and technical verdict", "novel intellectual"],     "order": 4 },
+    { "name": "Validation Rules",                            "keywords": ["5. validation rules", "validation criteria"],                     "order": 5 },
+    { "name": "Appendices",                                  "keywords": ["6. appendices", "appendix"],                                     "order": 6 }
+  ],
+
+  "mandatory_fields": {
+    "experiment_id": {
+      "pattern": "RD-\\d+",
+      "description": "Must contain explicit R&D experiment identifiers (e.g. RD-01)."
+    },
+    "research_hypotheses": {
+      "keywords": ["core research hypotheses", "2.1 core research hypotheses", "hypothesis"],
+      "description": "Must declare testable Core Research Hypotheses."
+    },
+    "novel_ip": {
+      "keywords": ["novel intellectual property", "4.2 novel intellectual property", "ip"],
+      "description": "Must document novel intellectual property or technical breakthroughs."
+    }
+  },
+
+  "min_word_count": 95,
+  "enforce_section_order": true
+}
