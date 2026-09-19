@@ -41,8 +41,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const tabBtns = document.querySelectorAll(".tab-btn");
   const tabContents = document.querySelectorAll(".tab-content");
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon = themeToggle.querySelector(".theme-icon");
+  const themeLabel = themeToggle.querySelector(".theme-label");
 
   let currentSelectedFile = null;
+
+  applyTheme(localStorage.getItem("document-validation-theme") || "light");
+  themeToggle.addEventListener("click", () => {
+    const nextTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
+    applyTheme(nextTheme);
+    localStorage.setItem("document-validation-theme", nextTheme);
+  });
+
+  function applyTheme(theme) {
+    document.body.dataset.theme = theme;
+    const darkMode = theme === "dark";
+    themeIcon.textContent = darkMode ? "☀" : "☾";
+    themeLabel.textContent = darkMode ? "Light mode" : "Dark mode";
+    themeToggle.title = darkMode ? "Switch to light mode" : "Switch to dark mode";
+    themeToggle.setAttribute("aria-label", themeToggle.title);
+  }
 
   loadDocumentTypes();
 
