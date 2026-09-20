@@ -33,6 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultCoachText = document.getElementById("resultCoachText");
   const railCoachTitle = document.getElementById("railCoachTitle");
   const railCoachText = document.getElementById("railCoachText");
+  const coachForm = document.getElementById("coachForm");
+  const coachQuestion = document.getElementById("coachQuestion");
+  const coachAnswer = document.getElementById("coachAnswer");
 
   const mlScoreFill = document.getElementById("mlScoreFill");
   const mlScoreVal = document.getElementById("mlScoreVal");
@@ -62,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentSelectedFile = null;
   let currentTemplate = "";
+  let latestReport = null;
 
   applyTheme(localStorage.getItem("document-validation-theme") || "light");
   themeToggle.addEventListener("click", () => {
@@ -104,6 +108,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   docTypeSelect.addEventListener("change", loadTemplateHelper);
+
+  coachForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const question = coachQuestion.value.trim();
+    coachAnswer.textContent = buildCoachAnswer(question, latestReport);
+    coachAnswer.classList.remove("hidden");
+    coachQuestion.select();
+  });
 
   async function loadTemplateHelper() {
     const selectedOption = docTypeSelect.options[docTypeSelect.selectedIndex];
@@ -295,6 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 4. Render Validation Results
   function renderValidationReport(report) {
+    latestReport = report;
     emptyState.classList.add("hidden");
     resultsDashboard.classList.remove("hidden");
 
@@ -368,6 +381,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Extracted Text Preview
     extractedTextCode.textContent = report.extracted_text || "No text content.";
+    coachAnswer.textContent = "Your report is ready. Ask about missing sections, required fields, score, or next steps.";
+    coachAnswer.classList.remove("hidden");
+  }
+
+  function buildCoachAnswer(question, report) {
+    if (!question) return "Type a question about the document and I will point you to the most useful next step.";
+    if (!report) return "Upload and validate a document first. Then I can explain its missing sections, fields, score, and next steps.";
+
+    const normalizedQuestion = question.toLowerCase();
+    const missingSections = report.sections.filter((section) => !section.found).map((section) => section.name);
+    const missingFields = Object.entries(report.mandatory_fields)
+      .filter(([, info]) => !info.found)
+      .map(([name]) => capitalize(name.replaceAll("_", " ")));
+
+    if (normalizedQuestion.includes("missing") || normalizedQuestion.includes("fix") || normalizedQuestion.includes("improve")) {
+      const missing = [...missingSections, ...missingFields];
+      return missing.length ? `Start with: ${missing.join(", ")}. Add these items, then validate the revised document again.` : "No required sections or fields are missing. Review the remarks and keep the document in the expected order.";
+    }
+    if (normalizedQuestion.includes("score") || normalizedQuestion.includes("confidence") || normalizedQuestion.includes("pass")) {
+      return `The document is ${report.decision.toLowerCase()} with ${Math.round(report.ml_confidence * 100)}% AI confidence and ${report.rule_passed ? "a passing" : "a failing"} rule check.`;
+    }
+    if (normalizedQuestion.includes("section") || normalizedQuestion.includes("heading") || normalizedQuestion.includes("order")) {
+      return `${missingSections.length ? `Missing sections: ${missingSections.join(", ")}. ` : "All required sections were found. "}${report.order_ok ? "Their order is correct." : "Their order needs review."}`;
+    }
+    if (normalizedQuestion.includes("field") || normalizedQuestion.includes("date") || normalizedQuestion.includes("signature")) {
+      return missingFields.length ? `These mandatory fields need attention: ${missingFields.join(", ")}.` : "All mandatory fields were found in the document.";
+    }
+    return report.reasons.length ? `The most important next step is to address: ${report.reasons[0]}` : "The document passed the main checks. You can export the report or submit the document.";
   }
 
   function showResultCoach(type, title, text, icon) {

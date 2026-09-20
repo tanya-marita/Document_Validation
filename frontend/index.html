@@ -255,10 +255,12 @@
             <span class="coach-label">Before you upload</span>
             <p>Use the selected template's headings, keep them in order, and include dates or approval details.</p>
           </div>
-          <div class="coach-input">
-            <span>Ask AI Coach about this document</span>
-            <span aria-hidden="true">→</span>
-          </div>
+          <form class="coach-input" id="coachForm">
+            <label class="sr-only" for="coachQuestion">Ask AI Coach about this document</label>
+            <input id="coachQuestion" type="text" placeholder="Ask about this document..." autocomplete="off">
+            <button type="submit" aria-label="Ask AI Coach">→</button>
+          </form>
+          <p class="coach-answer hidden" id="coachAnswer" role="status" aria-live="polite"></p>
         </section>
         <section class="trust-card glass">
           <span class="trust-icon" aria-hidden="true">♡</span>
