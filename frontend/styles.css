@@ -261,7 +261,13 @@ body {
   border: 1px solid var(--glass-border);
   font-size: 0.85rem;
   color: var(--accent-color);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
 }
+
+.header-status:disabled { opacity: 0.55; cursor: not-allowed; }
+.header-status:not(:disabled):hover { border-color: var(--accent-color); background: var(--card-hover); }
 
 .export-icon {
   display: inline-flex;
