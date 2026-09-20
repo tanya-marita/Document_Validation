@@ -72,7 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function applyTheme(theme) {
     document.body.dataset.theme = theme;
+    document.documentElement.dataset.theme = theme;
     const darkMode = theme === "dark";
+    document.documentElement.style.colorScheme = darkMode ? "dark" : "light";
     themeIcon.textContent = darkMode ? "☀" : "☾";
     themeLabel.textContent = darkMode ? "Light mode" : "Dark mode";
     themeToggle.title = darkMode ? "Switch to light mode" : "Switch to dark mode";
